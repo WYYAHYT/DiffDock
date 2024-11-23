@@ -28,16 +28,16 @@ SIGMA_MIN, SIGMA_MAX, SIGMA_N = 3e-3, 2, 5000  # relative to pi
 x = 10 ** np.linspace(np.log10(X_MIN), 0, X_N + 1) * np.pi
 sigma = 10 ** np.linspace(np.log10(SIGMA_MIN), np.log10(SIGMA_MAX), SIGMA_N + 1) * np.pi
 
-if os.path.exists('.p.npy'):
-    p_ = np.load('.p.npy')
-    score_ = np.load('.score.npy')
+if os.path.exists('/content/drive/p.npy'):
+    p_ = np.load('/content/drive/p.npy')
+    score_ = np.load('/content/drive/score.npy')
 else:
     p_ = p(x, sigma[:, None], N=100)
-    np.save('.p.npy', p_)
+    np.save('/content/drive/p.npy', p_)
 
     eps = np.finfo(p_.dtype).eps
     score_ = grad(x, sigma[:, None], N=100) / (p_ + eps)
-    np.save('.score.npy', score_)
+    np.save('/content/drive/score.npy', score_)
 
 
 def score(x, sigma):
